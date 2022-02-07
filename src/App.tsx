@@ -1,7 +1,7 @@
-import Student from './Students';
+import Components from './Components';
 
 function App() {
-  return <Student />;
+  return <Components />;
 }
 
 export default App;

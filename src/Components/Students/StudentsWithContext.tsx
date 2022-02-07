@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { getStudentsApi } from '../api/studentApi'; // import the api
-import useRequest from '../hooks/useRequest'; // import the hook
+import { getStudentsApi } from '../../api/studentApi'; // import the api
+import useRequest from '../../hooks/useRequest'; // import the hook
 import Students from './Students'; // import the component
 import { IStudentsContext } from './interface'; // import the interface
 
