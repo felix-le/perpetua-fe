@@ -18,7 +18,7 @@ export const StudentsWithContext = React.memo(() => {
   async function fetchStudentFn() {
     try {
       const data = await fetchStudents.execute();
-      setStudents(data);
+      setStudents(data.students);
     } catch (e) {
       console.log('🚀 ~  fetchStudentFn ~ e', e);
     }

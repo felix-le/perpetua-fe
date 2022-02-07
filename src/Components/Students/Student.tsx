@@ -35,7 +35,12 @@ const CardMainContent = Styled.div`
 const CardImg = Styled.div`
 `;
 
-const Student: React.FC<IStudentProps> = ({ student, studentByTags }) => {
+const Student: React.FC<IStudentProps> = ({
+  student,
+  formatData,
+  // setStudentData,
+  newFormatData,
+}) => {
   const {
     firstName,
     lastName,
@@ -61,12 +66,14 @@ const Student: React.FC<IStudentProps> = ({ student, studentByTags }) => {
   const _handleKeyDown = (e: any) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      studentByTags.map((s: IStudent) => {
+      newFormatData?.map((s: IStudent) => {
         if (s.id === id) {
           s?.tags?.push(inputDraft);
         }
         return s;
       });
+      // const newData =
+      // setStudentData(formatData);
       setInputDraft('');
     }
   };

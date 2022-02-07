@@ -6,9 +6,9 @@ export interface IStudentProps {
   // selectedStudents: string[] | [];
   // setInputTag: Dispatch<SetStateAction<string>>;
   students?: any;
-  //studentData?: any;
+  newFormatData?: any;
   // setStudentData: Dispatch<SetStateAction<string[]>>;
-  studentByTags?: any;
+  formatData?: any;
 }
 export interface IStudent {
   city: string;

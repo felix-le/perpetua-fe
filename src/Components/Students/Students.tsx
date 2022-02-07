@@ -24,7 +24,6 @@ const StyledSearchBar = styled.div`
 
 const Students = () => {
   const { students } = useContext(StudentsContext);
-
   const [searchNameTerm, setSearchNameTerm] = useState('');
   const [searchTagTerm, setSearTagTerm] = useState('');
   const [studentData, setStudentData] = useState<any>();
@@ -33,28 +32,38 @@ const Students = () => {
     setStudentData(students);
   }, [students]);
 
-  const data = studentData?.students;
+  const formatData = studentData?.map((s: any) => {
+    const { grades = [] } = s;
 
-  const studentByTags =
-    data
-      ?.map((s: any) => {
-        const { grades = [] } = s;
+    // convert grades to array of numbers
+    const gradesArray = grades.map((g: any) => Number(g));
 
-        // convert grades to array of numbers
-        const gradesArray = grades.map((g: any) => Number(g));
+    // assign average to average of grades
+    const averageGrade =
+      gradesArray.reduce((a: any, b: any) => a + b, 0) / gradesArray.length;
 
-        // assign average to average of grades
-        const averageGrade =
-          gradesArray.reduce((a: any, b: any) => a + b, 0) / gradesArray.length;
+    const newS = {
+      ...s,
+      average: averageGrade,
+      tags: [],
+    };
+    return newS;
+  });
 
-        const newS = {
-          ...s,
-          average: averageGrade,
-          tags: [],
-        };
-        return newS;
+  const newFormatData = [...formatData];
+
+  const studentByName = searchNameTerm
+    ? newFormatData?.filter((s: any) => {
+        const { firstName = '', lastName = '' } = s;
+        // filter based on searchNameTerm and first and last name
+        const fullName = `${firstName} ${lastName}`;
+        const filteredName = fullName.toLowerCase().includes(searchNameTerm);
+        return filteredName;
       })
-      ?.filter((s: any) => {
+    : formatData;
+
+  const studentByTags = searchTagTerm
+    ? newFormatData?.filter((s: any) => {
         const { tags = [] } = s;
 
         // filter tags by searchTagTerm
@@ -62,16 +71,12 @@ const Students = () => {
           t.includes(searchTagTerm)
         );
         return filteredTags;
-      }) || [];
-  const searchedTagNameStudentDisplay =
-    studentByTags?.filter((s: any) => {
-      const { firstName = '', lastName = '' } = s;
-      // filter based on searchNameTerm and first and last name
-      const fullName = `${firstName} ${lastName}`;
-      const filteredName = fullName.toLowerCase().includes(searchNameTerm);
-      return filteredName;
-    }) || [];
-  console.log('🚀 ~ ts ~ studentByTags', studentByTags);
+      })
+    : formatData;
+  const studentDataToDisplay = studentByName?.filter((value: any) =>
+    studentByTags?.indexOf(value)
+  );
+
   return (
     <StyledRoot>
       {/* search name input */}
@@ -91,8 +96,14 @@ const Students = () => {
       </StyledSearchBar>
 
       {/* display students */}
-      {searchedTagNameStudentDisplay?.map((s: any) => (
-        <Student key={s.id} student={s} studentByTags={studentByTags} />
+      {studentDataToDisplay?.map((s: any) => (
+        <Student
+          key={s.id}
+          student={s}
+          formatData={formatData}
+          // setStudentData={setStudentData}
+          newFormatData={newFormatData}
+        />
       ))}
     </StyledRoot>
   );
