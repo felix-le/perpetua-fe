@@ -20,10 +20,7 @@ export const StudentsWithContext = React.memo(() => {
       const data = await fetchStudents.execute();
       setStudents(data);
     } catch (e) {
-      console.log(
-        '🚀 ~ file: StudentsContext.js ~ line 16 ~ fetchStudentFn ~ e',
-        e
-      );
+      console.log('🚀 ~  fetchStudentFn ~ e', e);
     }
   }
   useEffect(() => {
