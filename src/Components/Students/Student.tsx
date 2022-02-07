@@ -66,14 +66,13 @@ const Student: React.FC<IStudentProps> = ({
   const _handleKeyDown = (e: any) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      newFormatData?.map((s: IStudent) => {
+      formatData?.map((s: IStudent) => {
         if (s.id === id) {
           s?.tags?.push(inputDraft);
         }
         return s;
       });
-      // const newData =
-      // setStudentData(formatData);
+
       setInputDraft('');
     }
   };

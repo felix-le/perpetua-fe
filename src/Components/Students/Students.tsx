@@ -50,10 +50,8 @@ const Students = () => {
     return newS;
   });
 
-  const newFormatData = [...formatData];
-
   const studentByName = searchNameTerm
-    ? newFormatData?.filter((s: any) => {
+    ? formatData?.filter((s: any) => {
         const { firstName = '', lastName = '' } = s;
         // filter based on searchNameTerm and first and last name
         const fullName = `${firstName} ${lastName}`;
@@ -63,7 +61,7 @@ const Students = () => {
     : formatData;
 
   const studentByTags = searchTagTerm
-    ? newFormatData?.filter((s: any) => {
+    ? formatData?.filter((s: any) => {
         const { tags = [] } = s;
 
         // filter tags by searchTagTerm
@@ -102,7 +100,7 @@ const Students = () => {
           student={s}
           formatData={formatData}
           // setStudentData={setStudentData}
-          newFormatData={newFormatData}
+          // newFormatData={newFormatData}
         />
       ))}
     </StyledRoot>
