@@ -1,25 +1,45 @@
 import { useContext, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import Styled from 'styled-components';
 
 // components
 import { StudentsContext } from './StudentsWithContext';
 import { IStudentProps } from './interface';
 import Student from './Student';
 
-const StyledRoot = styled.div`
+const StyledRoot = Styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
   width: 100%;
 `;
 
-const StyledSearchBar = styled.div`
+const StyledSearchBar = Styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
+`;
+
+const Input = Styled.input`
+  border: none;
+  border-bottom: 1px solid #DCDCDC;
+  margin-top: 20px;
+`;
+
+const SearchInput = Styled(Input)`
+  width: 100%;
+  height: 40px;
+  padding: 0 10px;
+  opacity: 0.8;
+  &:focus {
+    opacity: 1;
+    border-bottom: 1px solid black;
+  }
+  &:focus-visible {
+    outline: none;
+  }
 `;
 
 const Students = () => {
@@ -79,14 +99,14 @@ const Students = () => {
     <StyledRoot>
       {/* search name input */}
       <StyledSearchBar>
-        <input
+        <SearchInput
           type='text'
           placeholder='Search by name'
           onChange={(e) => setSearchNameTerm(e.target.value)}
         />
 
         {/* search tag input */}
-        <input
+        <SearchInput
           type='text'
           placeholder='Search by tag'
           onChange={(e) => setSearTagTerm(e.target.value)}
